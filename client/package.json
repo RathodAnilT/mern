@@ -11,10 +11,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.2.5",
+    "@reduxjs/toolkit": "^2.2.7",
     "firebase": "^10.12.2",
     "flowbite-react": "^0.7.8",
+    "lodash": "^4.17.21",
     "moment": "^2.29.4",
+    "package-name": "^0.1.0",
+    "quilljs": "^0.18.1",
     "react": "^18.2.0",
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18.2.0",
