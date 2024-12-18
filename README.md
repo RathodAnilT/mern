@@ -1,1 +1,1 @@
-# Reactjs project MERN Blog website
+#  MERN Blog website
