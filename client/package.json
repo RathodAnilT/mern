@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
+    "browser-image-compression": "^2.0.2",
     "firebase": "^10.12.2",
     "flowbite-react": "^0.7.8",
     "lodash": "^4.17.21",

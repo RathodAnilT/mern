@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useNavigate } from 'react-router-dom';
+import imageCompression from 'browser-image-compression';
 
 export default function CreatePost() {
   const [file, setFile] = useState(null);
@@ -19,6 +20,7 @@ export default function CreatePost() {
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
+  const [tagInput, setTagInput] = useState('');
 
   const navigate = useNavigate();
 
@@ -29,10 +31,23 @@ export default function CreatePost() {
         return;
       }
       setImageUploadError(null);
+      // Compress the image before upload
+      const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1200,
+        useWebWorker: true,
+      };
+      let compressedFile = file;
+      try {
+        compressedFile = await imageCompression(file, options);
+      } catch (compressionError) {
+        // If compression fails, fallback to original file
+        compressedFile = file;
+      }
       const storage = getStorage(app);
-      const fileName = new Date().getTime() + '-' + file.name;
+      const fileName = new Date().getTime() + '-' + compressedFile.name;
       const storageRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, file);
+      const uploadTask = uploadBytesResumable(storageRef, compressedFile);
       uploadTask.on(
         'state_changed',
         (snapshot) => {
@@ -58,6 +73,13 @@ export default function CreatePost() {
       console.log(error);
     }
   };
+
+  const handleTagInput = (e) => {
+    setTagInput(e.target.value);
+    const tags = e.target.value.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+    setFormData({ ...formData, tags });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -108,6 +130,13 @@ export default function CreatePost() {
             <option value='nextjs'>Next.js</option>
           </Select>
         </div>
+        <TextInput
+          type='text'
+          placeholder='Tags (comma-separated): react, hooks, tutorial'
+          id='tags'
+          value={tagInput}
+          onChange={handleTagInput}
+        />
         <div className='flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3'>
           <FileInput
             type='file'

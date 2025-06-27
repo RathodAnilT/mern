@@ -6,6 +6,7 @@ import {
   HiOutlineUserGroup,
   HiAnnotation,
   HiChartPie,
+  HiBookmark,
 } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -64,6 +65,15 @@ export default function DashSidebar() {
               as='div'
             >
               Profile
+            </Sidebar.Item>
+          </Link>
+          <Link to='/dashboard?tab=bookmarks'>
+            <Sidebar.Item
+              active={tab === 'bookmarks'}
+              icon={HiBookmark}
+              as='div'
+            >
+              Bookmarks
             </Sidebar.Item>
           </Link>
           {currentUser.isAdmin && (

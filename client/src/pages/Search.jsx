@@ -8,6 +8,7 @@ export default function Search() {
     searchTerm: '',
     sort: 'desc',
     category: 'uncategorized',
+    tag: '',
   });
 
   console.log(sidebarData);
@@ -24,12 +25,14 @@ export default function Search() {
     const searchTermFromUrl = urlParams.get('searchTerm');
     const sortFromUrl = urlParams.get('sort');
     const categoryFromUrl = urlParams.get('category');
-    if (searchTermFromUrl || sortFromUrl || categoryFromUrl) {
+    const tagFromUrl = urlParams.get('tag');
+    if (searchTermFromUrl || sortFromUrl || categoryFromUrl || tagFromUrl) {
       setSidebarData({
         ...sidebarData,
         searchTerm: searchTermFromUrl,
         sort: sortFromUrl,
         category: categoryFromUrl,
+        tag: tagFromUrl,
       });
     }
 
@@ -67,6 +70,10 @@ export default function Search() {
       const category = e.target.value || 'uncategorized';
       setSidebarData({ ...sidebarData, category });
     }
+    if (e.target.id === 'tag') {
+      const tag = e.target.value || '';
+      setSidebarData({ ...sidebarData, tag });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -75,6 +82,7 @@ export default function Search() {
     urlParams.set('searchTerm', sidebarData.searchTerm);
     urlParams.set('sort', sidebarData.sort);
     urlParams.set('category', sidebarData.category);
+    urlParams.set('tag', sidebarData.tag);
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
   };
@@ -135,6 +143,16 @@ export default function Search() {
               <option value='nextjs'>Next.js</option>
               <option value='javascript'>JavaScript</option>
             </Select>
+          </div>
+          <div className='flex items-center gap-2'>
+            <label className='font-semibold'>Tag:</label>
+            <TextInput
+              placeholder='Enter tag...'
+              id='tag'
+              type='text'
+              value={sidebarData.tag}
+              onChange={handleChange}
+            />
           </div>
           <Button type='submit' outline gradientDuoTone='purpleToPink'>
             Apply Filters

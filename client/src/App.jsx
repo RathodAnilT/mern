@@ -14,6 +14,7 @@ import UpdatePost from './pages/UpdatePost';
 import PostPage from './pages/PostPage';
 import ScrollToTop from './components/ScrollToTop';
 import Search from './pages/Search';
+import CSFundamentals from './pages/CSFundamentals';
 
 export default function App() {
   return (
@@ -36,6 +37,7 @@ export default function App() {
 
         <Route path='/projects' element={<Projects />} />
         <Route path='/post/:postSlug' element={<PostPage />} />
+        <Route path='/cs-fundamentals' element={<CSFundamentals />} />
       </Routes>
       <Footer />
     </BrowserRouter>

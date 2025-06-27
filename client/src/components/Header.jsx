@@ -49,15 +49,16 @@ export default function Header() {
   };
 
   return (
-    <Navbar className='border-b-2'>
+    <Navbar className='fixed top-0 left-0 w-full z-50 border-b-2 bg-white dark:bg-gray-900 shadow-md'>
       <Link
         to='/'
         className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'
+        title="Where Curiosity Never Ends"
       >
         <span className='px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-lg text-white'>
-          Anil's
+          Learning
         </span>
-        Blog
+        Loop
       </Link>
       <form onSubmit={handleSubmit}>
         <TextInput
@@ -116,6 +117,14 @@ export default function Header() {
         </Navbar.Link>
         <Navbar.Link active={path === '/about'} as={'div'}>
           <Link to='/about'>About</Link>
+        </Navbar.Link>
+        <Navbar.Link active={path === '/cs-fundamentals'} as={'div'}>
+          <Link
+            to='/cs-fundamentals'
+            className='text-sm sm:text-base font-semibold text-teal-500 hover:text-purple-500 transition-colors ml-4'
+          >
+            CS Fundamentals
+          </Link>
         </Navbar.Link>
         <Navbar.Link active={path === '/projects'} as={'div'}>
           <Link to='/projects'>Projects</Link>
